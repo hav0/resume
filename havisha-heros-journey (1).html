@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Hero's Journey - Havisha Singh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #f9f5e8;
+    --bg-raised: #f2ead4;
+    --paper-line: #e3d6ae;
+    --red: #b81c1c;
+    --red-deep: #8a1212;
+    --ink: #2b1c10;
+    --ink-soft: #5c4a38;
+    --gold: #a9791f;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #f9f5e8;
+      --bg-raised: #f2ead4;
+      --paper-line: #e3d6ae;
+      --red: #b81c1c;
+      --red-deep: #8a1212;
+      --ink: #2b1c10;
+      --ink-soft: #5c4a38;
+      --gold: #a9791f;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #f9f5e8;
+    --bg-raised: #f2ead4;
+    --paper-line: #e3d6ae;
+    --red: #b81c1c;
+    --red-deep: #8a1212;
+    --ink: #2b1c10;
+    --ink-soft: #5c4a38;
+    --gold: #a9791f;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(184,28,28,0.05), transparent 40%),
+      radial-gradient(circle at 88% 92%, rgba(184,28,28,0.05), transparent 40%),
+      var(--bg);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--red-deep); }
+
+  .wrap{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 56px 22px 80px;
+  }
+
+  /* ---------- Header ---------- */
+  header{ text-align:center; margin-bottom: 34px; }
+
+  .kicker{
+    font-family:'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.15rem;
+    color: var(--red-deep);
+    letter-spacing: 0.02em;
+    margin: 0 0 6px;
+  }
+
+  h1{
+    font-family:'Playfair Display', serif;
+    font-weight: 800;
+    font-size: clamp(2.1rem, 6vw, 3.1rem);
+    margin: 0 0 4px;
+    color: var(--ink);
+    line-height: 1.08;
+  }
+  h1 .struck{
+    position: relative;
+    color: var(--red);
+  }
+  h1 .struck::after{
+    content:"";
+    position:absolute;
+    left:-3%; right:-3%; top:52%;
+    height: 3px;
+    background: var(--ink);
+    transform: rotate(-2deg);
+  }
+
+  .tagline{
+    font-family:'Playfair Display', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+    margin: 10px 0 0;
+  }
+
+  .contact-line{
+    margin-top: 18px;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.02em;
+  }
+  .contact-line a{ color: var(--red-deep); text-decoration: none; border-bottom: 1px solid rgba(184,28,28,0.35); }
+  .contact-line a:hover{ border-bottom-color: var(--red-deep); }
+  .dot-sep{ margin: 0 8px; color: var(--paper-line); }
+
+  .pitch{
+    max-width: 620px;
+    margin: 22px auto 0;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+  }
+
+  /* ---------- Progress ---------- */
+  .progress{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 12px;
+    margin: 34px 0 6px;
+    font-family:'Playfair Display', serif;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+  .progress-track{
+    width: 160px;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--paper-line);
+    overflow: hidden;
+  }
+  .progress-fill{
+    height: 100%;
+    width: 0%;
+    background: var(--red);
+    transition: width 0.4s ease;
+  }
+  .progress-label{ white-space: nowrap; }
+
+  /* ---------- Trail ---------- */
+  .trail{
+    position: relative;
+    margin-top: 44px;
+  }
+  .trail::before{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:6px; bottom:6px;
+    width:0;
+    border-left: 3px dashed rgba(184,28,28,0.4);
+    transform: translateX(-50%);
+  }
+  @media (max-width: 640px){
+    .trail::before{ left:26px; }
+  }
+
+  .stage{
+    position: relative;
+    width: 44%;
+    margin-bottom: 30px;
+  }
+  .stage:nth-child(odd){ margin-left: 0; margin-right: 56%; text-align: right; }
+  .stage:nth-child(even){ margin-left: 56%; margin-right: 0; text-align: left; }
+
+  @media (max-width: 640px){
+    .stage, .stage:nth-child(odd), .stage:nth-child(even){
+      width: calc(100% - 66px);
+      margin-left: 66px;
+      margin-right: 0;
+      text-align: left;
+    }
+  }
+
+  .badge{
+    position: absolute;
+    top: 4px;
+    width: 46px; height: 46px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .stage:nth-child(odd) .badge{ right: -79px; }
+  .stage:nth-child(even) .badge{ left: -79px; }
+  @media (max-width: 640px){
+    .stage .badge{ left: -66px !important; right: auto !important; }
+  }
+  .badge::before, .badge::after{
+    content:"";
+    position:absolute; inset:0;
+    background: var(--red);
+  }
+  .badge::after{ transform: rotate(45deg); }
+  .badge span{
+    position: relative; z-index: 2;
+    font-family:'Playfair Display', serif;
+    font-weight:700;
+    color: var(--bg);
+    font-size: 1rem;
+  }
+
+  details.card{
+    background: var(--bg-raised);
+    border: 1px solid var(--paper-line);
+    border-radius: 4px;
+    box-shadow: 3px 3px 0 rgba(184,28,28,0.08);
+    overflow: hidden;
+  }
+  details.card[open]{
+    box-shadow: 4px 4px 0 rgba(184,28,28,0.14);
+  }
+
+  summary.card-head{
+    list-style: none;
+    cursor: pointer;
+    padding: 14px 18px;
+    display:flex;
+    flex-direction: column;
+    gap: 2px;
+    user-select: none;
+  }
+  summary.card-head::-webkit-details-marker{ display:none; }
+
+  .stage:nth-child(even) summary.card-head{ align-items: flex-start; }
+  .stage:nth-child(odd) summary.card-head{ align-items: flex-end; }
+  @media (max-width: 640px){
+    summary.card-head{ align-items: flex-start !important; }
+  }
+
+  .stage-eyebrow{
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    color: var(--red-deep);
+    font-family:'Playfair Display', serif;
+    font-style: italic;
+  }
+  .stage-title{
+    font-family:'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.12rem;
+    color: var(--ink);
+  }
+  .stage-hint{
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    opacity: 0.75;
+    margin-top: 2px;
+  }
+  details[open] .stage-hint{ display:none; }
+
+  .card-body{
+    padding: 0 18px 18px;
+    text-align: left;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--paper-line);
+    padding-top: 14px;
+  }
+  .card-body p{ margin: 0 0 10px; }
+  .card-body ul{ margin: 0; padding-left: 20px; }
+  .card-body li{ margin-bottom: 8px; }
+  .card-body li:last-child{ margin-bottom: 0; }
+  .card-body .meta{
+    color: var(--ink); font-weight: 600;
+  }
+
+  /* ---------- Finale ---------- */
+  .finale{
+    margin-top: 60px;
+    text-align: center;
+    padding: 34px 20px;
+    border: 1px dashed rgba(184,28,28,0.45);
+    border-radius: 6px;
+    background: var(--bg-raised);
+  }
+  .finale h2{
+    font-family:'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin: 0 0 10px;
+  }
+  .finale p{ color: var(--ink-soft); max-width: 520px; margin: 0 auto 20px; }
+
+  .skills{
+    display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
+    margin: 0 0 24px;
+  }
+  .skill-pill{
+    font-size: 0.82rem;
+    padding: 5px 12px;
+    border: 1px solid rgba(184,28,28,0.35);
+    border-radius: 999px;
+    color: var(--red-deep);
+    font-family:'Playfair Display', serif;
+  }
+
+  .links{
+    display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
+  }
+  .link-btn{
+    display:inline-block;
+    padding: 10px 20px;
+    background: var(--red);
+    color: var(--bg);
+    text-decoration:none;
+    border-radius: 3px;
+    font-family:'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 0.92rem;
+    letter-spacing: 0.01em;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .link-btn:hover{ background: var(--red-deep); transform: translateY(-1px); }
+  .link-btn.secondary{
+    background: transparent;
+    color: var(--red-deep);
+    border: 1px solid rgba(184,28,28,0.5);
+  }
+  .link-btn.secondary:hover{ background: rgba(184,28,28,0.06); }
+
+  footer.note{
+    text-align:center;
+    margin-top: 40px;
+    color: var(--ink-soft);
+    font-size: 0.82rem;
+    opacity: 0.7;
+  }
+
+  :focus-visible{ outline: 2px solid var(--red); outline-offset: 2px; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="kicker">Havisha Singh's</p>
+    <h1>THE <span class="struck">HERO</span>'S JOURNEY</h1>
+    <p class="tagline">a map of how a psychology student found her way to brand strategy</p>
+    <p class="contact-line">
+      <a href="mailto:havishasingh.ubs@gmail.com">havishasingh.ubs@gmail.com</a>
+      <span class="dot-sep">·</span>
+      <a href="https://www.linkedin.com/in/havishasingh/" target="_blank" rel="noopener">LinkedIn</a>
+      <span class="dot-sep">·</span>
+      <a href="https://havishasingh.carrd.co/" target="_blank" rel="noopener">Portfolio</a>
+      <span class="dot-sep">·</span>
+      <a href="https://drive.google.com/file/d/1ewPYSJFQduxsQfsMw90i2qTCJW0eEOQq/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
+    </p>
+    <p class="pitch">MBA student with a background in consumer psychology and neuromarketing, bringing behavioural insight to consumer-first brand strategy, positioning, and marketing for D2C and lifestyle brands.</p>
+  </header>
+
+  <div class="progress" role="status" aria-live="polite">
+    <span class="progress-label"><span id="progress-count">0</span>/12 landmarks explored</span>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+
+  <div class="trail" id="trail">
+
+    <div class="stage">
+      <span class="badge"><span>1</span></span>
+      <details class="card">
+        <summary class="card-head">
+          <span class="stage-eyebrow">The Ordinary World</span>
+          <span class="stage-title">Academics</span>
+          <span class="stage-hint">tap to open</span>
+        </summary>
+        <div class="card-body">
+          <ul>
+            <li><span class="meta">Master of Business Administration</span> - University Business School, Panjab University, Chandigarh (2026–2028)</li>
+            <li><span class="meta">Bachelor of Arts (Honours), Psychology</span> - Panjab University, Chandigarh (2023–2026), 85.87% · University Rank 3, Semester III</li>
+            <li><span class="meta">Delhi Public School, Chandigarh</span> - Senior Secondary 97% · Secondary 98.8%, Scholar Gold Medal</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+
+    <div class="stage">
+      <span class="badge"><span>2</span></span>
+      <details class="card">
+        <summary class="card-head">
+          <span class="stage-eyebrow">Call to Adventure</span>
+          <span class="stage-title">Decoding the Consumer Mind</span>
+          <span class="stage-hint">tap to open</span>
+        </summary>
+        <div class="card-body">
+          <ul>
+            <li><span class="meta">Consumer Neuroscience &amp; Neuromarketing</span> - Copenhagen Business School, Denmark (Dec 2023)</li>
+            <li><span class="meta">Predictive Analytics</span> - IIM Bangalore (Dec 2024)</li>
+            <li><span class="meta">Neuroscience II Summer School</span>, Capstone Track - International Youth Neuroscience Association (Aug 2025)</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+
+    <div class="stage">
+      <span class="badge"><span>3</span></span>
+      <details class="card">
+        <summary class="card-head">
+          <span class="stage-eyebrow">Refusal of the Call</span>
+          <span class="stage-title">Moving Beyond the Lab</span>
+          <span class="stage-hint">tap to open</span>
+        </summary>
+        <div class="card-body">
+          <p>Questioned traditional psychology, moving toward how brands actually build behaviour.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="stage">
+      <span class="badge"><span>4</span></span>
+      <details class="card">
+        <summary class="card-head">
+          <span class="stage-eyebrow">Meeting the Mentor</span>
+          <span class="stage-title">Frameworks for Brand Thinking</span>
+          <span class="stage-hint">tap to open</span>
+        </summary>
+        <div class="card-body">
+          <p>Guided by behavioural science frameworks, analysing consumer behaviour - the lens that has shaped every competition, project, and idea since.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="stage">
+      <span class="badge"><span>5</span></span>
+      <details class="card">
+        <summary class="card-head">
+          <span class="stage-eyebrow">Crossing the Threshold</span>
+          <span class="stage-title">Leadership</span>
+          <span class="stage-hint">tap to open</span>
+        </summary>
+        <div class="card-body">
+          <ul>
+            <li><span class="meta">Chair</span> - Mavericks, The Book &amp; Film Club</li>
+            <li><span class="meta">Group Leader</span>, National Service Scheme (2024–2026) - developed 120+ reports and press releases on social initiatives; contributed to a cybersecurity survey with the Chandigarh Cyber Cell</li>
+            <li><span class="meta">Media Reporter</span>, National Service Scheme (2023–2024)</li>
+            <li><span class="meta">Creative Head</span>, Rotaract Club Chandigarh Shivalik (2023–2024) - 100+ promotional materials, trained a content team, Leader of the Month twice</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+
+    <div class="stage">
+      <span class="badge"><span>6</span></span>
+      <details class="card">
+        <summary class="card-head">
+          <span class="stage-eyebrow">Tests, Allies &amp; Enemies</span>
+          <span class="stage-title">Collaborations</span>
+          <span class="stage-hint">tap to open</span>
+        </summary>
+        <div class="card-body">
+          <p>Led teams, navigating challenges and collaborating toward shared goals.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="stage">
+      <span class="badge"><span>7</span></span>
+      <details class="card">
+        <summary class="card-head">
+          <span class="stage-eyebrow">Approach to the Inmost Cave</span>
+          <span class="stage-title">Why People Buy</span>
+          <span class="stage-hint">tap to open</span>
+        </summary>
+        <div class="card-body">
+          <p>Exploring the behavioural and narrative levers that shape brand perception and purchase decisions.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="stage">
+      <span class="badge"><span>8</span></span>
+      <details class="card">
+        <summary class="card-head">
+          <span class="stage-eyebrow">The Ordeal</span>
+          <span class="stage-title">Competitions</span>
+          <span class="stage-hint">tap to open</span>
+        </summary>
+        <div class="card-body">
+          <ul>
+            <li><span class="meta">Devil's Advocate</span> - Essay and Debate Competition, IIM Bangalore (Venix 2025)</li>
+            <li><span class="meta">Ashoka Behavioural Case Competition 2.0</span> - Ashoka University</li>
+            <li><span class="meta">The Big Write Off</span> - Digital Blog Writing Challenge, IIM Lucknow</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+
+    <div class="stage">
+      <span class="badge"><span>9</span></span>
+      <details class="card">
+        <summary class="card-head">
+          <span class="stage-eyebrow">Reward</span>
+          <span class="stage-title">Recognition and Insight</span>
+          <span class="stage-hint">tap to open</span>
+        </summary>
+        <div class="card-body">
+          <ul>
+            <li><span class="meta">Finalist, Top 12</span> - Devil's Advocate, IIM Bangalore (Aug 2025): built brand-centric arguments and narratives, applying consumer psychology to analyse how messaging, identity, and emotional cues shape brand loyalty</li>
+            <li><span class="meta">Finalist, Top 10 Teams</span> - Ashoka Behavioural Case Competition 2.0 (Apr 2025): designed audience-first content and messaging frameworks using behavioural principles to influence engagement and adoption</li>
+            <li><span class="meta">National Finalist</span> - The Big Write Off, IIM Lucknow (Dec 2024): wrote on advertising and storytelling, exploring how narratives shape consumer perception and decision-making</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+
+    <div class="stage">
+      <span class="badge"><span>10</span></span>
+      <details class="card">
+        <summary class="card-head">
+          <span class="stage-eyebrow">The Road Back</span>
+          <span class="stage-title">Integration</span>
+          <span class="stage-hint">tap to open</span>
+        </summary>
+        <div class="card-body">
+          <p>Turning behavioural insight into sharper brand and marketing direction.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="stage">
+      <span class="badge"><span>11</span></span>
+      <details class="card">
+        <summary class="card-head">
+          <span class="stage-eyebrow">Resurrection</span>
+          <span class="stage-title">Enhancing Linguistic Perspective</span>
+          <span class="stage-hint">tap to open</span>
+        </summary>
+        <div class="card-body">
+          <ul>
+            <li>Studied French for two years at Alliance Française de Chandigarh</li>
+            <li><span class="meta">DALF C1</span> - Ministère de l'Éducation Nationale, France (Feb 2026)</li>
+            <li><span class="meta">DELF B2</span> - Ministère de l'Éducation Nationale, France (July 2025)</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+
+    <div class="stage">
+      <span class="badge"><span>12</span></span>
+      <details class="card">
+        <summary class="card-head">
+          <span class="stage-eyebrow">Return with the Elixir</span>
+          <span class="stage-title">Future Focus</span>
+          <span class="stage-hint">tap to open</span>
+        </summary>
+        <div class="card-body">
+          <p>Bringing forward a perspective shaped by diverse academic explorations, with the ambition to explore consumer decision-making and brand marketing.</p>
+        </div>
+      </details>
+    </div>
+
+  </div>
+
+  <div class="finale">
+    <h2>The Elixir</h2>
+    <p>Core competencies: brand strategy &amp; research, consumer insights, data analysis, and presentation &amp; visual communication.</p>
+    <div class="skills">
+      <span class="skill-pill">Brand Strategy &amp; Research</span>
+      <span class="skill-pill">Consumer Insights</span>
+      <span class="skill-pill">Data Analysis - Excel, Python, R</span>
+      <span class="skill-pill">Presentation &amp; Visual Communication</span>
+    </div>
+    <div class="links">
+      <a class="link-btn" href="https://www.linkedin.com/in/havishasingh/" target="_blank" rel="noopener">Connect on LinkedIn</a>
+      <a class="link-btn secondary" href="https://havishasingh.carrd.co/" target="_blank" rel="noopener">View Portfolio</a>
+      <a class="link-btn secondary" href="mailto:havishasingh.ubs@gmail.com">Email Me</a>
+      <a class="link-btn secondary" href="https://drive.google.com/file/d/1ewPYSJFQduxsQfsMw90i2qTCJW0eEOQq/view?usp=sharing" target="_blank" rel="noopener">Download Resume</a>
+    </div>
+  </div>
+
+  <footer class="note">12 stages · 1 story · Havisha Singh</footer>
+
+</div>
+
+<script>
+(function(){
+  var details = document.querySelectorAll('#trail details.card');
+  var countEl = document.getElementById('progress-count');
+  var fillEl = document.getElementById('progress-fill');
+  var STORAGE_KEY = 'heros-journey-explored';
+  var explored = {};
+
+  try{
+    var saved = localStorage.getItem(STORAGE_KEY);
+    if(saved){ explored = JSON.parse(saved) || {}; }
+  }catch(e){ explored = {}; }
+
+  function updateProgress(){
+    var count = Object.keys(explored).filter(function(k){ return explored[k]; }).length;
+    countEl.textContent = count;
+    fillEl.style.width = (count/12*100) + '%';
+  }
+
+  details.forEach(function(d, i){
+    var id = 'stage-' + i;
+    if(explored[id]){ d.setAttribute('open',''); }
+    d.addEventListener('toggle', function(){
+      if(d.open){
+        explored[id] = true;
+        try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(explored)); }catch(e){}
+        updateProgress();
+      }
+    });
+  });
+
+  updateProgress();
+})();
+</script>
+
+</body>
+</html>
